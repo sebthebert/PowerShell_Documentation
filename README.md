@@ -15,7 +15,7 @@ Get-Help <cmd> -ShowWindow
 
 Get-Help <cmd> -Examples
 
-Get-Help *child*
+Get-Help *<cmd>*
 
 Get-Command *<cmd>*
 ```
@@ -30,17 +30,19 @@ Avoir la liste des alias:
 Get-Alias
 ```
 
-Afficher les logs:
+Afficher les logs...:
 ```
 Get-EventLog -LogName Application -Newest 10
 ```
 
 `-Confirm` permet de demander confirmation avant action
+
 `-WhatIf` affiche ce qui va etre effectué
+
 
 ### Exercices:
 
-Quelle commande pour faire une résolution DNS:
+Quelle commande pour faire une résolution DNS ?
 ```
 Get-Command *dns* -type Cmdlet
 ```
@@ -52,40 +54,40 @@ Get-Command set*adapt*
 ```
 --> `Set-NetAdapter`
 
-Et le parametre pour modifier l'adresse MAC dans cette commande:
+Et le parametre pour modifier l'adresse MAC dans cette commande ?
 ```
 Get-Help Set-NetAdapter
 ```
 --> `-MacAddress`
 
-Quelle commande pour reactiver une tache planifiée:
+Quelle commande pour reactiver une tache planifiée ?
 ```
 Get-Command *scheduledtask*
 ```
 --> `Enable-ScheduledTask`
 
-Quelle commande pour bloquer l'acces vers un partage pour un user specifique:
+Quelle commande pour bloquer l'accès vers un partage pour un user specifique ?
 ```
 Get-Command *block*
 ```
 --> `Block-SmbShareAccess`
 
-Quelle commande pour effacer le cache local ("BranchCache"):
+Quelle commande pour effacer le cache local ("BranchCache") ?
 ```
 Get-Command *cache*
 ```
 --> `Clear-BCCache`
 
-Quelle commande pour afficher liste des règles firewall:
+Quelle commande pour afficher liste des règles firewall ?
 ```
 Get-Command get*firewall*
 ```
 --> `Get-NetFirewallRule`
 
-Et uniquement les actives:
+Et uniquement les règles actives ?
 --> `Get-NetFirewallRule -Enabled true`
 
-Quelle commande pour modifier le type de demarrage du service BITS en automatique:
+Quelle commande pour modifier le type de démarrage du service BITS en automatique ?
 ```
 Get-Help Set-Service
 ```
@@ -111,7 +113,7 @@ Get-ChildItem | Measure-Object
 
 Faire une sélection à partir d'une liste:
 ```
-| Select-Object
+<cmd> | Select-Object
 ```
 
 ### Exercices
@@ -121,6 +123,7 @@ Get-Date | Get-Member
 Get-Date | Select-Object -property dayofyear
 ```
 
+Afficher les Hotfixes
 ```
 Get-Help hotfix
 --> Get-Hotfix
@@ -147,4 +150,14 @@ Get-Command get*dns*
 Afficher seulement le nom d'enregistrement:
 ```
 Get-DnsClientCache | Select-Object -Property Name,Type,TimeToLive
+```
+
+
+## Les imports/exports
+
+### Exercices
+
+Afficher les processus (id,name,vm) en cours d'execution dans l'ordre alphabetique inverse:
+```
+Get-Process | Sort Name -Descending | Select-Object Name,Id,VirtualMemorySize
 ```
