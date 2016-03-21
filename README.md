@@ -175,3 +175,24 @@ Get-EventLog -LogName System -Newest 10 | Export-Csv sys_eventlogs.csv
 ```PowerShell
 Get-Service | Sort status -descending | Export-CliXML services.xml
 ```
+
+
+## Les filtres
+
+```PowerShell
+GetService | Where { $_.Status -eq 'Running' }
+
+GetService | Where { $_.Name.Length -lt 5 }
+```
+
+### Exercices
+
+Récupérer les users dans l'AD qui ont un certain 'cn':
+```PowerShell
+Get-ADUSer -filter * -searchbase "cn=<...>"
+```
+
+Récupérer les logs du type 4624 (successfully logged on)
+```PowerShell
+Get-EventLog -LogName Security | Where eventid -eq 4624
+```
