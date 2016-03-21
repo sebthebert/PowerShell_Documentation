@@ -197,9 +197,24 @@ Récupérer les logs du type 4624 (successfully logged on)
 Get-EventLog -LogName Security | Where eventid -eq 4624
 ```
 
-Lister les volumes qui n'ont plus beaucoup d'espace (100 Mo):
+Lister les volumes qui n'ont plus beaucoup d'espace (<100 Mo):
 ```PowerShell
 Get-Volume | Get-Member
 -> SizeRemaining
 Get-Volume | Where SizeRemaining -lt 100MB 
 ```
+
+```PowerShell
+Get-Volume | Where { $_.SizeRemaining -gt 0 -and ($_.SizeReaining / $_.Size) -lt 0.99 }
+```
+
+```PowerShell
+Get-ControlPanelItem -Category 'System and Security'
+```
+
+## Foreach...
+
+```PowerShell
+Get-ChildItem -path cert: -recurse | foreach getkeyalgorithm
+```
+
