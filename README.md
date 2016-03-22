@@ -315,3 +315,46 @@ Afficher les .exe de c:\windows par ordre decroissant
 ```PowerShell
 Get-ChildItem C:\windows | where { $_.extension -eq '.exe' } | sort length -descending | FT -property name,@{name='Size(KB)';expression={ $_.length / 1KB }} -auto
 ```
+Ou plus simple et mieux formaté...
+```PowerShell
+Get-ChildItem C:\windows\*.exe | Sort-Object Length -Descending | FT -property name,@{name='Size(KB)';expression={ $_.length / 1KB };formatString='N2'} -auto
+```
+
+## CIM & WMI
+
+WMI = Windows Management Instrumentation
+CIM = Common Information Model (plus recent, depuis Win7)
+
+```PowerShell
+Get-WmiObject -namespace root\cimv2 -list -recurse
+
+Get-WmiObject -Class Win32_LogicalDisk -Filter "DriveType=3"
+Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3"
+```
+
+Pour avoir le contenu d'une classe, on peut utiliser `Get-Member`
+```PowerShell
+Get-WmiObject -Class Win32_Service | Get-Member
+```
+
+```PowerShell
+Get-WmiObject -Class Win32_OperatingSystem | Invoke-WMiMethod -name win32shutdown -argument 0
+```
+
+Pour lister les methodes et les propriétés d'une classe
+```
+Get-WmiObject -Class <classname> | Get-Member -Type Method
+Get-WmiObject -Class <classname> | Get-Member -Type Property
+```
+
+### Exercices
+
+Lister les adresses configurées en DHCP
+```PowerShell
+Get-WmiObject -class Win32_NetworkAdapterConfiguration | Where DHCPEnabled -eq 'True'
+```
+
+Récupérer la version, servicepackmajorversion et le buildnumber de l'OS
+```PowerShell
+Get-CimInstance -ClassName Win32_OperatingSystem | FT -Property Version,ServicePackMajorVersion,BuildNumber -auto
+```
