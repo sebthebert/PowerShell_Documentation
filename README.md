@@ -358,3 +358,8 @@ Récupérer la version, servicepackmajorversion et le buildnumber de l'OS
 ```PowerShell
 Get-CimInstance -ClassName Win32_OperatingSystem | FT -Property Version,ServicePackMajorVersion,BuildNumber -auto
 ```
+
+Récupérer les informations utilisateur suivantes: caption,domain,sid,fullname,name
+```PowerShell
+Get-CimInstance -classname Win32_UserAccount | Select-Object -property cpation,domain,sid,fullname,name
+```
