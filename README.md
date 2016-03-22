@@ -363,3 +363,10 @@ Récupérer les informations utilisateur suivantes: caption,domain,sid,fullname,
 ```PowerShell
 Get-CimInstance -classname Win32_UserAccount | Select-Object -property cpation,domain,sid,fullname,name
 ```
+
+Changer le mode de démarrage du service WinRM
+```PowerShell
+Get-WmiObject -class Win32_Service | Where Name -eq 'WinRM' | Invoke-WmiMethod -name ChangeStartMode -argument Automatic
+
+Get-CimInstance -classname Win32_Service | Where Name -eq 'WinRM' | Invoke-CimMethod -methodname ChangeStartMode -arguments @{startmode='manual'} 
+```
