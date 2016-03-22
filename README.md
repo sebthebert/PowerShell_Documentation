@@ -257,10 +257,61 @@ Créer une nouvelle clé (Scripts) dans HKCU\Software
 New-Item HKCU:\Software\Scripts
 ```
 
+Ajouter une clé/valeur dans HKCU:\Software\Scripts
 ```PowerShell
 New-ItemProperty HKCU:\Software\Scripts -Name "Windows PowerShell" -value "test"
 
 Get-ItemProperty HKCU:\Software\Scripts | Select-Object * -exclude pspath,psparentpath,pschildname,psdrive,psprovider
+```
 
 
+```PowerShell
+Set-Item -Path wsman:\localhost\service\maxconnections -value 250
+```
+
+## Formatage
+
+### Format-Wide (FW)
+```PowerShell
+Get-Service | Format-Wide
+Get-Service | Format-Wide -Col 5
+Get-Service | FW -autosize
+```
+
+### Format-List (FL)
+```
+Get-Process | Format-List -Poperty Name,ID
+Get-Service | FL -Poperty *
+```
+
+### Format-Table (FT)
+```PowerShell
+Get-Service | Format-Table -Prop Name,DisplayName
+Get-Service | FT Name -Prop Name,DisplayName,Status -Wrap
+Get-EventLog -logname security -newest 50 | FT -property eventid,timewritten,message
+```
+
+### Out-GridView (uniquement si on a PS ISE sur la machine)
+```PowerShell
+Get-Process | Out-GridView
+```
+
+### Exercices
+
+Computername,Description,Domain,Manufacturer,Model,number of processors,installed physical memory (GB)
+
+```PowerShell
+Get-CimClass
+Get-CimInstance  -class Win32_ComputerSystem | get-member
+Get-CimInstance  -class Win32_ComputerSystem | Format-List -Property Name,Description,Domain,Manufacturer,Model,Numberofprocessors,@{n='TotalPhysicalMemory';e={$_.TotalPhysicalMemory / 1GB}}
+```
+
+Afficher les processus par 'BasePriority'
+```PowerShell
+Get-Process | Sort BasePriority | FT -GroupBy BasePriority
+``` 
+
+Afficher les .exe de c:\windows par ordre decroissant 
+```PowerShell
+Get-ChildItem C:\windows | where { $_.extension -eq '.exe' } | sort length -descending | FT -property name,@{name='Size(KB)';expression={ $_.length / 1KB }} -auto
 ```
