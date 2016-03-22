@@ -218,3 +218,49 @@ Get-ControlPanelItem -Category 'System and Security'
 Get-ChildItem -path cert: -recurse | foreach getkeyalgorithm
 ```
 
+
+## Les Providers
+
+Les Providers permettent d'accéder à différentes sources de données à la manière d'un Filesystem.
+
+On peut alors lancer les commandes cd, dir, ls...
+
+Pour lister les Providers
+```PowerShell
+Get-PSProvider
+```
+
+Pour lister les Drives fournis par ces Providers
+```PowerShell
+Get-PSDrive
+```
+
+En important le module ActiveDirectory, on ajoute un Provider Active Directory
+```PowerShell
+Import-Module ACtiveDirectory
+```
+
+### Exercices
+
+Créer un dossier sans utiliser la commande mkdir ou un de ses aliases
+```PowerShell
+New-Item -itemtype directory c:\ScriptOutput
+```
+
+Créer un nouveau PSDrive et le mapper sur le répertoire déjà créé
+```PowerShell
+New-PSDrive -Name S -PSPRovider FileSystem -Root C:\ScriptOutput
+```
+
+Créer une nouvelle clé (Scripts) dans HKCU\Software
+```PowerShell
+New-Item HKCU:\Software\Scripts
+```
+
+```PowerShell
+New-ItemProperty HKCU:\Software\Scripts -Name "Windows PowerShell" -value "test"
+
+Get-ItemProperty HKCU:\Software\Scripts | Select-Object * -exclude pspath,psparentpath,pschildname,psdrive,psprovider
+
+
+```
