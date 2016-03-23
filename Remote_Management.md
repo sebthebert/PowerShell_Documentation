@@ -10,3 +10,8 @@ Pour se connecter en PowerShell a un ordinateur distant
 ```PowerShell
 Enter-PSSession -ComputerName <computername>
 ```
+
+Lancer une commande PowerShell sur plusieurs machines
+```PowerShell
+Invoke-Command -ComputerName <srv1>,<srv2>,<srv3> -ScriptBlock { <commande> }
+```
