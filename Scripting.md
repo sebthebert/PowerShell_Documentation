@@ -112,3 +112,4 @@ switch ()
   "" { }
 }
 ```
+peut executer plusieurs matchs sauf si on utilise `break`.
