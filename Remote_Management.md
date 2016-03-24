@@ -15,3 +15,12 @@ Lancer une commande PowerShell sur plusieurs machines
 ```PowerShell
 Invoke-Command -ComputerName <srv1>,<srv2>,<srv3> -ScriptBlock { <commande> }
 ```
+
+Importer un module depuis un autre serveur
+```PowerShell
+$dc=New-PSSession -computername LON-DC1
+Import-Module -pssession $dc -name smbshare -prefix dc
+Get-dcSmbShare
+Get-SmbShare
+```
+Si on ne met pas de préfixe, ca masque completement le fait qu'on fait les actions sur une autre machine !
