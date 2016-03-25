@@ -137,7 +137,12 @@ $str.Substring(8, 5)
 -split
 ```
 
-Les Regex
+Documentation sur les String:
+go microsoft.com 306159
+
+
+## Les Regex
+
 ```PowerShell
 [regex]::Matches("1X2Y3Z", "\D") -join("")
 # => XYZ
@@ -145,5 +150,37 @@ Les Regex
 
 http://www.powershelladmin.com/wiki/Powershell_regular_expressions#Class_Methods
 
-Documentation sur les String:
-go microsoft.com 306159
+
+## Les Dates
+
+```PowerShell
+$today = Get-Date
+$today.Year
+$today.AddDays(10)
+
+# pour voir toutes les possibilités
+$today | gm
+```
+
+## Autres
+
+-Contains/-In
+```PowerShell
+$collection = "red","green","blue"
+
+$collection -Contains "green"
+
+$collection -In "blue"
+```
+
+Parametres par defaut pour des commandes
+```PowerShell
+$PSDefaultParameterValues = @{"Get-CimInstance:ClassName"="win32_bios"}
+
+Get-CimInstance
+```
+
+```PowerShell
+# Tout ce qu'il y a apres --% ne sera pas interprété par le Shell
+--% 
+```
