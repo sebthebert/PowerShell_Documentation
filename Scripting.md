@@ -113,3 +113,37 @@ switch ()
 }
 ```
 peut executer plusieurs matchs sauf si on utilise `break`.
+
+## Manipulation de String
+
+```PowerShell
+$str.ToUpper()
+
+$str.ToLower()
+
+$str.Replace("o", "*")
+
+$str.Length()
+
+# IndexOf trouve la premiere occurence (-1 si il ne trouve rien)
+$str.IndexOf("P")
+
+$str.Substring(8, 5)
+```
+
+```PowerShell
+-replace
+-join
+-split
+```
+
+Les Regex
+```PowerShell
+[regex]::Matches("1X2Y3Z", "\D") -join("")
+# => XYZ
+```
+
+http://www.powershelladmin.com/wiki/Powershell_regular_expressions#Class_Methods
+
+Documentation sur les String:
+go microsoft.com 306159
